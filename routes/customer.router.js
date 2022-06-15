@@ -20,13 +20,13 @@ router.get('/',  async (req, res, next) => {
 });
 
 router.post('/',
-  validationHandler(createCustomerSchema, 'body'),
+  validationHandler(createCustomerSchema, 'body', true),
   async (req, res, next) => {
     try {
       const body = req.body;
       res.status(201).json(await service.create(body));
     } catch (error) {
-      next(error);
+      next(error)
     }
   }
 );

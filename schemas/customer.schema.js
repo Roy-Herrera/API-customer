@@ -1,4 +1,5 @@
 const Joi = require('joi');
+const lookup = require('./../utils/emailValidation')
 
 const id = Joi.number().integer();
 const name = Joi.string().min(3).max(30);
@@ -16,7 +17,10 @@ const createCustomerSchema = Joi.object({
   name: name.required(),
   lastName: lastName.required(),
   phone: phone.required(),
-  userId: userId.required()
+  user: Joi.object({
+    email: email.required().external(lookup),
+    password: password.required()
+  })
 });
 
 const updateCustomerSchema = Joi.object({
